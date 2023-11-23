@@ -1,11 +1,13 @@
 package guru.springframework.sfgpetclinic.model;
 
 import org.hamcrest.MatcherAssert;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.jupiter.api.Assertions.*;
 
+@Tag("model")
 class OwnerTest {
 
     @Test
