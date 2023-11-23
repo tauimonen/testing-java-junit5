@@ -4,10 +4,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.*;
 
 import java.time.Duration;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 class IndexControllerTest {
 
@@ -25,6 +28,7 @@ class IndexControllerTest {
         assertEquals("index", controller.index(), "Wrong View Returned");
         assertEquals("index", controller.index(), () -> "Another expensive message. " +
                 "Make me only if you have to");
+        assertThat(controller.index()).isEqualTo("index");
     }
 
     @Test
@@ -53,5 +57,47 @@ class IndexControllerTest {
 
             System.out.println("I got here 438538998");
         });
+    }
+
+    @Test
+    void testAssumptionTrue() {
+
+        assumeTrue("GURU".equalsIgnoreCase(System.getenv("GURU_RUNTIME")));
+    }
+
+    @Test
+    void testAssumptionTrueAssumptionIsTrue() {
+
+        assumeTrue("GURU".equalsIgnoreCase("GURU"));
+    }
+
+    @EnabledOnOs(OS.MAC)
+    @Test
+    void testMeOnMacOS() {
+    }
+
+    @EnabledOnOs(OS.WINDOWS)
+    @Test
+    void testMeOnWindows() {
+    }
+
+    @EnabledOnJre(JRE.JAVA_8)
+    @Test
+    void testMeOnJava8() {
+    }
+
+    @EnabledOnJre(JRE.OTHER)
+    @Test
+    void testMeOnJavaOther() {
+    }
+
+    @EnabledIfEnvironmentVariable(named = "USER", matches = "jt")
+    @Test
+    void testIfUserJT() {
+    }
+
+    @EnabledIfEnvironmentVariable(named = "username", matches = "uimon")
+    @Test
+    void testIfUserUimon() {
     }
 }
