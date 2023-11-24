@@ -1,12 +1,12 @@
 package guru.springframework.sfgpetclinic.model;
 
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
+import guru.springframework.sfgpetclinic.ModelRepeatedTests;
+import guru.springframework.sfgpetclinic.ModelTests;
+import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@Tag("model")
-class PersonTest {
+class PersonTest implements ModelTests {
 
     @Test
     void groupedAssertions() {
@@ -31,4 +31,20 @@ class PersonTest {
                 () -> assertEquals( "Climo", person.getLastName(), "Last Name Failed"));
     }
 
+    @RepeatedTest(value = 10, name = "{displayName} : {currentRepetition} - {totalRepetitions}")
+    @DisplayName("My Repeated Test")
+    void myRepeatedTest() {
+        // todo -impl
+    }
+
+    @RepeatedTest(5)
+    void myRepeatedTestWithDI(TestInfo testInfo, RepetitionInfo repetitionInfo) {
+        System.out.println(testInfo.getDisplayName() + ": " + repetitionInfo.getCurrentRepetition());
+    }
+
+    @RepeatedTest(value = 5, name = "{displayName}")
+    @DisplayName("Repeated Test")
+    void repeatedTest(TestInfo testInfo, RepetitionInfo repetitionInfo) {
+        // todo impl
+    }
 }
